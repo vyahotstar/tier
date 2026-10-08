@@ -1,1 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>MCPVP Tiers | Minecraft PvP Rankings</title>
+
+<meta name="description"
+      content="MCPVP Tiers - Minecraft PvP rankings, player tiers, leaderboards and statistics.">
+
+<style>
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #08090d;
+    color: #f5f5f5;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+    --bg: #08090d;
+    --panel: #101218;
+    --panel2: #151821;
+    --border: #252936;
+    --text: #ffffff;
+    --muted: #8d93a3;
+    --accent: #7c5cff;
+    --accent2: #9b85ff;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    height: 70px;
+    width: 100%;
+    background: rgba(8, 9, 13, 0.92);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 35px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(15px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.logo-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #7957ff, #a78bfa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    box-shadow: 0 0 25px rgba(124,92,255,.35);
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+}
+
+.nav-links a {
+    color: #aeb3c0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: white;
+}
+
+.nav-button {
+    border: 1px solid var(--border);
+    background: #151721;
+    color: white;
+    padding: 10px 17px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    padding: 70px 6% 45px;
+    text-align: center;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(124,92,255,.18), transparent 40%);
+}
+
+.hero h1 {
+    font-size: clamp(38px, 6vw, 70px);
+    line-height: 1;
+    margin-bottom: 18px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #fff, #a992ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: auto;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+    width: 88%;
+    max-width: 1100px;
+    margin: 25px auto 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 22px;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.stat span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.container {
+    width: 92%;
+    max-width: 1250px;
+    margin: auto;
+}
+
+/* =========================================================
+   GAME MODES
+========================================================= */
+
+.section-title {
+    margin-bottom: 17px;
+    font-size: 20px;
+}
+
+.modes {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.mode {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: #aeb3c0;
+    padding: 11px 17px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.mode:hover,
+.mode.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.search {
+    flex: 1;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: white;
+    outline: none;
+    padding: 13px 15px;
+    border-radius: 10px;
+}
+
+.filter {
+    background: var(--panel);
+    color: white;
+    border: 1px solid var(--border);
+    padding: 0 15px;
+    border-radius: 10px;
+    outline: none;
+}
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+.leaderboard {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.table-head,
+.player {
+    display: grid;
+    grid-template-columns: 70px 2fr 100px 100px 1fr;
+    align-items: center;
+}
+
+.table-head {
+    padding: 15px 20px;
+    color: #707687;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 800;
+    border-bottom: 1px solid var(--border);
+}
+
+.player {
+    padding: 17px 20px;
+    border-bottom: 1px solid #1b1e27;
+    transition: .2s;
+}
+
+.player:last-child {
+    border-bottom: none;
+}
+
+.player:hover {
+    background: #151821;
+}
+
+.rank {
+    font-size: 14px;
+    color: #858b9a;
+    font-weight: 800;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: #20232e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.player-name {
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.region {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.points {
+    font-weight: 800;
+}
+
+.tier {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+/* =========================================================
+   TIER COLORS
+========================================================= */
+
+.HT1,
+.MT1,
+.LT1 {
+    background: #b26cff;
+    color: white;
+}
+
+.HT2,
+.MT2,
+.LT2 {
+    background: #26b9e8;
+    color: #071016;
+}
+
+.HT3,
+.MT3,
+.LT3 {
+    background: #e3aa3e;
+    color: #161005;
+}
+
+.HT4,
+.MT4,
+.LT4 {
+    background: #a7aeb8;
+    color: #111318;
+}
+
+.HT5,
+.MT5,
+.LT5 {
+    background: #795d4c;
+    color: white;
+}
+
+/* =========================================================
+   TIER GUIDE
+========================================================= */
+
+.tier-section {
+    margin-top: 50px;
+}
+
+.tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+}
+
+.tier-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 18px;
+}
+
+.tier-card h3 {
+    margin-bottom: 8px;
+}
+
+.tier-card p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.tier-example {
+    display: flex;
+    gap: 7px;
+    margin-top: 13px;
+    flex-wrap: wrap;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    margin-top: 70px;
+    border-top: 1px solid var(--border);
+    padding: 35px 6%;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.footer-content {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .navbar {
+        padding: 0 18px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .table-head {
+        display: none;
+    }
+
+    .player {
+        grid-template-columns: 40px 1fr;
+        gap: 10px;
+    }
+
+    .player > .points,
+    .player > .region-column {
+        display: none;
+    }
+
+    .tier-column {
+        grid-column: 2;
+    }
+
+    .tier-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .filter {
+        height: 45px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .hero {
+        padding-top: 45px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <div class="logo-box">M</div>
+        MCPVP
+    </div>
+
+    <nav class="nav-links">
+        <a href="#" class="active">Rankings</a>
+        <a href="#tiers">Tiers</a>
+        <a href="#players">Players</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <a href="#players" class="nav-button">
+        Find Player
+    </a>
+
+</header>
+
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+
+<section class="hero">
+
+    <h1>
+        Minecraft PvP
+        <span class="gradient-text">Rankings</span>
+    </h1>
+
+    <p>
+        Explore player rankings, PvP tiers and competitive
+        statistics across every major Minecraft PvP gamemode.
+    </p>
+
+</section>
+
+
+<!-- ======================================================
+     STATS
+====================================================== -->
+
+<section class="stats">
+
+    <div class="stat">
+        <strong>1,250+</strong>
+        <span>Ranked Players</span>
+    </div>
+
+    <div class="stat">
+        <strong>9</strong>
+        <span>Gamemodes</span>
+    </div>
+
+    <div class="stat">
+        <strong>HT1</strong>
+        <span>Highest Tier</span>
+    </div>
+
+    <div class="stat">
+        <strong>400+</strong>
+        <span>Top Tier Points</span>
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     MAIN CONTENT
+====================================================== -->
+
+<main class="container">
+
+    <h2 class="section-title">
+        Gamemodes
+    </h2>
+
+    <div class="modes">
+
+        <button class="mode active" onclick="changeMode('Overall', this)">
+            Overall
+        </button>
+
+        <button class="mode" onclick="changeMode('Sword', this)">
+            ⚔ Sword
+        </button>
+
+        <button class="mode" onclick="changeMode('Axe', this)">
+            🪓 Axe
+        </button>
+
+        <button class="mode" onclick="changeMode('Pot', this)">
+            🧪 Pot
+        </button>
+
+        <button class="mode" onclick="changeMode('NethPot', this)">
+            🔥 NethPot
+        </button>
+
+        <button class="mode" onclick="changeMode('SMP', this)">
+            💎 SMP
+        </button>
+
+        <button class="mode" onclick="changeMode('UHC', this)">
+            ❤️ UHC
+        </button>
+
+        <button class="mode" onclick="changeMode('Mace', this)">
+            🔨 Mace
+        </button>
+
+        <button class="mode" onclick="changeMode('Crystal', this)">
+            💠 Crystal
+        </button>
+
+    </div>
+
+
+    <!-- ==================================================
+         SEARCH
+    ================================================== -->
+
+    <div class="controls" id="players">
+
+        <input
+            type="text"
+            class="search"
+            id="searchInput"
+            placeholder="Search player..."
+            oninput="searchPlayers()"
+        >
+
+        <select class="filter" id="regionFilter" onchange="searchPlayers()">
+
+            <option value="All">All Regions</option>
+            <option value="NA">North America</option>
+            <option value="EU">Europe</option>
+            <option value="AS">Asia</option>
+            <option value="AU">Oceania</option>
+
+        </select>
+
+    </div>
+
+
+    <!-- ==================================================
+         LEADERBOARD
+    ================================================== -->
+
+    <div class="leaderboard">
+
+        <div class="table-head">
+
+            <div>#</div>
+
+            <div>Player</div>
+
+            <div>Region</div>
+
+            <div>Points</div>
+
+            <div>Tier</div>
+
+        </div>
+
+        <div id="playerList"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         TIER GUIDE
+    ================================================== -->
+
+    <section class="tier-section" id="tiers">
+
+        <h2 class="section-title">
+            Tier System
+        </h2>
+
+        <div class="tier-grid">
+
+            <div class="tier-card">
+
+                <h3>Tier 1</h3>
+
+                <p>
+                    The highest competitive level.
+                    Players at this level are among the strongest
+                    in their respective gamemode.
+                </p>
+
+                <div class="tier-example">
+
+                    <span class="tier HT1">HT1</span>
+                    <span class="tier MT1">MT1</span>
+                    <span class="tier LT1">LT1</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="tier-card">
+
+                <h3>Tier 2</h3>
+
+                <p>
+                    Elite competitive players with very strong
+                    mechanics, game sense and consistency.
+                </p>
+
+                <div class="tier-example">
+
+                    <span class="tier HT2">HT2</span>
+                    <span class="tier MT2">MT2</span>
+                    <span class="tier LT2">LT2</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="tier-card">
+
+                <h3>Tier 3</h3>
+
+                <p>
+                    Strong and experienced PvP players who can
+                    consistently compete at a high level.
+                </p>
+
+                <div class="tier-example">
+
+                    <span class="tier HT3">HT3</span>
+                    <span class="tier MT3">MT3</span>
+                    <span class="tier LT3">LT3</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="tier-card">
+
+                <h3>Tier 4</h3>
+
+                <p>
+                    Intermediate players with developing
+                    competitive PvP skills.
+                </p>
+
+                <div class="tier-example">
+
+                    <span class="tier HT4">HT4</span>
+                    <span class="tier MT4">MT4</span>
+                    <span class="tier LT4">LT4</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="tier-card">
+
+                <h3>Tier 5</h3>
+
+                <p>
+                    Entry-level competitive tier for newer
+                    or developing players.
+                </p>
+
+                <div class="tier-example">
+
+                    <span class="tier HT5">HT5</span>
+                    <span class="tier MT5">MT5</span>
+                    <span class="tier LT5">LT5</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<footer id="about">
+
+    <div class="footer-content">
+
+        <div>
+            © 2026 MCPVP Tiers. All rights reserved.
+        </div>
+
+        <div class="footer-links">
+
+            <a href="#">Discord</a>
+            <a href="#">Rules</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+/* =========================================================
+   PLAYER DATA
+========================================================= */
+
+const players = [
+
+    {
+        name: "Marlowww",
+        region: "NA",
+        points: 450,
+        tiers: {
+            Overall: "HT1",
+            Sword: "HT1",
+            Axe: "LT1",
+            Pot: "HT1",
+            NethPot: "HT1",
+            SMP: "HT1",
+            UHC: "LT1",
+            Mace: "HT1",
+            Crystal: "HT1"
+        }
+    },
+
+    {
+        name: "ItzRealMe",
+        region: "NA",
+        points: 330,
+        tiers: {
+            Overall: "LT1",
+            Sword: "HT3",
+            Axe: "LT2",
+            Pot: "HT1",
+            NethPot: "HT1",
+            SMP: "HT1",
+            UHC: "LT2",
+            Mace: "LT2",
+            Crystal: "HT2"
+        }
+    },
+
+    {
+        name: "Coldified",
+        region: "EU",
+        points: 326,
+        tiers: {
+            Overall: "LT1",
+            Sword: "LT1",
+            Axe: "LT1",
+            Pot: "LT1",
+            NethPot: "LT2",
+            SMP: "HT1",
+            UHC: "HT1",
+            Mace: "LT1",
+            Crystal: "HT2"
+        }
+    },
+
+    {
+        name: "Swight",
+        region: "NA",
+        points: 290,
+        tiers: {
+            Overall: "HT2",
+            Sword: "LT2",
+            Axe: "HT1",
+            Pot: "LT2",
+            NethPot: "HT2",
+            SMP: "HT1",
+            UHC: "HT1",
+            Mace: "LT2",
+            Crystal: "HT2"
+        }
+    },
+
+    {
+        name: "qblasts",
+        region: "NA",
+        points: 270,
+        tiers: {
+            Overall: "HT2",
+            Sword: "HT2",
+            Axe: "HT2",
+            Pot: "HT1",
+            NethPot: "HT2",
+            SMP: "HT2",
+            UHC: "LT2",
+            Mace: "HT3",
+            Crystal: "HT2"
+        }
+    },
+
+    {
+        name: "AXIMITY",
+        region: "NA",
+        points: 255,
+        tiers: {
+            Overall: "HT2",
+            Sword: "MT2",
+            Axe: "LT2",
+            Pot: "HT1",
+            NethPot: "MT2",
+            SMP: "MT2",
+            UHC: "LT2",
+            Mace: "HT3",
+            Crystal: "HT2"
+        }
+    },
+
+    {
+        name: "JokingDK",
+        region: "EU",
+        points: 242,
+        tiers: {
+            Overall: "MT2",
+            Sword: "HT3",
+            Axe: "HT2",
+            Pot: "HT2",
+            NethPot: "LT2",
+            SMP: "MT2",
+            UHC: "HT3",
+            Mace: "HT3",
+            Crystal: "MT2"
+        }
+    },
+
+    {
+        name: "PlayerOne",
+        region: "AS",
+        points: 190,
+        tiers: {
+            Overall: "MT2",
+            Sword: "LT2",
+            Axe: "HT3",
+            Pot: "HT2",
+            NethPot: "HT3",
+            SMP: "HT2",
+            UHC: "LT3",
+            Mace: "HT3",
+            Crystal: "HT3"
+        }
+    },
+
+    {
+        name: "PvPMaster",
+        region: "EU",
+        points: 155,
+        tiers: {
+            Overall: "LT2",
+            Sword: "HT3",
+            Axe: "MT3",
+            Pot: "HT3",
+            NethPot: "HT3",
+            SMP: "LT2",
+            UHC: "HT3",
+            Mace: "MT3",
+            Crystal: "HT3"
+        }
+    },
+
+    {
+        name: "DiamondGuy",
+        region: "AS",
+        points: 120,
+        tiers: {
+            Overall: "MT3",
+            Sword: "LT3",
+            Axe: "HT3",
+            Pot: "HT3",
+            NethPot: "MT3",
+            SMP: "HT3",
+            UHC: "LT3",
+            Mace: "HT4",
+            Crystal: "HT3"
+        }
+    }
+
+];
+
+
+/* =========================================================
+   CURRENT MODE
+========================================================= */
+
+let currentMode = "Overall";
+
+
+/* =========================================================
+   CHANGE MODE
+========================================================= */
+
+function changeMode(mode, button) {
+
+    currentMode = mode;
+
+    document
+        .querySelectorAll(".mode")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    searchPlayers();
+}
+
+
+/* =========================================================
+   RENDER PLAYERS
+========================================================= */
+
+function renderPlayers(list) {
+
+    const container = document.getElementById("playerList");
+
+    container.innerHTML = "";
+
+    if (list.length === 0) {
+
+        container.innerHTML = `
+            <div style="
+                padding:40px;
+                text-align:center;
+                color:#777;
+            ">
+                No players found.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    list.forEach((player, index) => {
+
+        const tier = player.tiers[currentMode] || "-";
+
+        const initials =
+            player.name
+                .substring(0, 2)
+                .toUpperCase();
+
+
+        const row = document.createElement("div");
+
+        row.className = "player";
+
+        row.innerHTML = `
+
+            <div class="rank">
+                #${index + 1}
+            </div>
+
+            <div class="player-info">
+
+                <div class="avatar">
+                    ${initials}
+                </div>
+
+                <div>
+
+                    <div class="player-name">
+                        ${player.name}
+                    </div>
+
+                    <div class="region">
+                        ${player.region}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="region-column">
+                ${player.region}
+            </div>
+
+            <div class="points">
+                ${player.points}
+            </div>
+
+            <div class="tier-column">
+
+                <span class="tier ${tier}">
+                    ${tier}
+                </span>
+
+            </div>
+        `;
+
+        container.appendChild(row);
+
+    });
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchPlayers() {
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+    const region =
+        document
+            .getElementById("regionFilter")
+            .value;
+
+
+    let filtered = players.filter(player => {
+
+        const matchesName =
+            player.name
+                .toLowerCase()
+                .includes(search);
+
+        const matchesRegion =
+            region === "All" ||
+            player.region === region;
+
+        return matchesName && matchesRegion;
+
+    });
+
+
+    /* Highest points first */
+
+    filtered.sort((a, b) => b.points - a.points);
+
+    renderPlayers(filtered);
+}
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+renderPlayers(players);
+
+</script>
+
+</body>
+</html>
