@@ -1,1 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="description"
+          content="Learn about MCPVP Tier, a Minecraft PvP tier ranking community for competitive players, tier testing, and leaderboards.">
+
+    <title>About Us | Kohinoor Tier</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080b12;
+            color: #ffffff;
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        header {
+            background: #0d111b;
+            border-bottom: 1px solid #202838;
+            padding: 16px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            color: #43e5ff;
+            font-size: 25px;
+            font-weight: 900;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: #ffffff;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #b7c1d2;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #43e5ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 360px;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background:
+                radial-gradient(
+                    ellipse at top,
+                    rgba(0, 190, 255, 0.19),
+                    transparent 65%
+                ),
+                linear-gradient(180deg, #0d1525, #080b12);
+        }
+
+        .tag {
+            display: inline-block;
+            color: #43e5ff;
+            border: 1px solid #246778;
+            background: #10232e;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 65px);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #43e5ff;
+        }
+
+        .hero p {
+            color: #a9b5c8;
+            max-width: 650px;
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .container {
+            width: 84%;
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .section {
+            padding: 65px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #929fb4;
+        }
+
+        .about-text {
+            color: #aeb9cb;
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .about-text strong {
+            color: #43e5ff;
+        }
+
+        /* Statistics */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 25px 15px;
+            border: 1px solid #222e40;
+            border-radius: 12px;
+            background: #101622;
+        }
+
+        .stat-card h3 {
+            color: #43e5ff;
+            font-size: 32px;
+        }
+
+        .stat-card p {
+            color: #9ba9be;
+            font-size: 14px;
+        }
+
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: #101622;
+            border: 1px solid #222e40;
+            padding: 28px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #43e5ff;
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 19px;
+        }
+
+        .feature-card p {
+            color: #9ba9be;
+            font-size: 14px;
+        }
+
+        /* Tier System */
+        .tier-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .tier {
+            padding: 18px 8px;
+            border-radius: 9px;
+            text-align: center;
+            background: #101622;
+            border: 1px solid #263246;
+        }
+
+        .tier h3 {
+            font-size: 23px;
+            margin-bottom: 5px;
+        }
+
+        .tier p {
+            color: #aab5c7;
+            font-size: 12px;
+        }
+
+        .ht1 h3 { color: #ff5268; }
+        .lt1 h3 { color: #ff944d; }
+        .ht2 h3 { color: #ffdb55; }
+        .lt2 h3 { color: #8af080; }
+        .ht3 h3 { color: #55d9ff; }
+
+        /* Community Banner */
+        .community {
+            text-align: center;
+            background: linear-gradient(135deg, #102334, #111627);
+            border: 1px solid #24495b;
+            padding: 45px 25px;
+            border-radius: 15px;
+            margin-bottom: 70px;
+        }
+
+        .community h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .community p {
+            color: #aab8ca;
+            margin-bottom: 25px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #43e5ff;
+            color: #071018;
+            font-weight: bold;
+            border-radius: 7px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #0d111b;
+            border-top: 1px solid #202838;
+            padding: 30px 8%;
+            text-align: center;
+        }
+
+        footer p {
+            color: #8492a8;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #43e5ff;
+            text-decoration: none;
+        }
+
+        .footer-links {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            font-size: 13px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+            }
+
+            nav {
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tier-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                width: 90%;
+            }
+
+            .hero {
+                min-height: 320px;
+                padding: 60px 20px;
+            }
+
+            .stats,
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .tier-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-title h2 {
+                font-size: 27px;
+            }
+
+            .community h2 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <a href="index.html" class="logo">MC<span>PVP</span> TIER</a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="tiers.html">Tiers</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="about.html" class="active">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <span class="tag">OUR COMMUNITY</span>
+
+        <h1>About <span>MCPVP Tier</span></h1>
+
+        <p>
+            A competitive Minecraft PvP community built around skill,
+            fair testing, player improvement, and recognizing the best fighters.
+        </p>
+    </section>
+
+    <main>
+
+        <!-- About Us -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Who We Are</h2>
+                    <p>Built for players. Driven by competition.</p>
+                </div>
+
+                <div class="about-text">
+                    <p>
+                        Welcome to <strong>MCPVP Tier</strong>, a community
+                        concept for Minecraft PvP players who want to test
+                        their abilities, improve their gameplay, and compete
+                        with other skilled fighters.
+                    </p>
+
+                    <br>
+
+                    <p>
+                        Our goal is to provide a clear tier ranking system,
+                        competitive leaderboards, and a place where players
+                        can showcase their skills across different PvP modes.
+                        Whether you are a beginner or an experienced player,
+                        there is always room to learn and improve.
+                    </p>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3>5+</h3>
+                        <p>Example Tier Levels</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>公平</h3>
+                        <p>Fair Competition</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>100%</h3>
+                        <p>Focus on Improvement</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section" style="background: #0b0f18;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>What We Offer</h2>
+                    <p>Everything competitive PvP players need to get started.</p>
+                </div>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚔️</div>
+                        <h3>PvP Tier Rankings</h3>
+                        <p>
+                            Organize players into skill tiers based on
+                            their performance in supported PvP modes.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Leaderboards</h3>
+                        <p>
+                            Showcase top players and give competitors
+                            a place to track their progress.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Fair Testing</h3>
+                        <p>
+                            Encourage consistent rules, honest results,
+                            and respectful competition.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3>Player Progress</h3>
+                        <p>
+                            Help players identify weaknesses and work
+                            toward higher skill levels.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>Community</h3>
+                        <p>
+                            Bring PvP enthusiasts together to share
+                            experience, strategies, and challenges.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎮</div>
+                        <h3>Multiple Modes</h3>
+                        <p>
+                            Make room for different Minecraft combat
+                            styles and competitive play modes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tier System -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Tier System</h2>
+                    <p>An example ranking structure for competitive players.</p>
+                </div>
+
+                <div class="tier-list">
+                    <div class="tier ht1">
+                        <h3>HT1</h3>
+                        <p>High Tier 1</p>
+                    </div>
+
+                    <div class="tier lt1">
+                        <h3>LT1</h3>
+                        <p>Low Tier 1</p>
+                    </div>
+
+                    <div class="tier ht2">
+                        <h3>HT2</h3>
+                        <p>High Tier 2</p>
+                    </div>
+
+                    <div class="tier lt2">
+                        <h3>LT2</h3>
+                        <p>Low Tier 2</p>
+                    </div>
+
+                    <div class="tier ht3">
+                        <h3>HT3</h3>
+                        <p>High Tier 3</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Community -->
+        <section class="container">
+            <div class="community">
+                <h2>Ready to Prove Your Skills?</h2>
+
+                <p>
+                    Start improving, challenge yourself, and become
+                    part of the Minecraft PvP community.
+                </p>
+
+                <a href="tiers.html" class="button">Explore Tiers</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="tiers.html">Tiers</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <p>
+            &copy; 2026 MCPVP Tier. All rights reserved.
+        </p>
+
+        <p>
+            Minecraft is a trademark of Mojang Studios.
+            This is an independent community website concept.
+        </p>
+    </footer>
+
+</body>
+</html>
